@@ -21,6 +21,7 @@ class _TasksPageState extends State<TasksPage> {
 
   @override
   void initState() {
+    context.read<TasksCubit>().getAllTasks();
     scrollController.addListener(_scrollListener);
     super.initState();
   }

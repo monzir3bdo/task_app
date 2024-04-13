@@ -18,7 +18,7 @@ class TaskOptionsWidget extends StatelessWidget {
         left: 10,
         right: 10,
       ),
-      height: context.height * 0.28,
+      height: context.height * 0.20,
       child: Column(
         children: [
           ListTile(

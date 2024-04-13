@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:task_management/core/helper_functions.dart';
@@ -71,7 +73,9 @@ class TaskWidget extends StatelessWidget {
           Row(
             children: [
               const Icon(Icons.date_range),
-              const Text('2024/5/2'),
+              Gap(2),
+              Text(
+                  '202${Random().nextInt(1) + 3}/${Random().nextInt(11) + 1}/${Random().nextInt(29) + 1}'),
               const Spacer(),
               GestureDetector(
                 onTap: onDone,

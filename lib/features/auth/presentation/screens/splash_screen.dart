@@ -14,7 +14,7 @@ class SplashScreen extends StatelessWidget {
     return SizedBox(
       height: context.height,
       child: AnimatedSplashScreen(
-          splashIconSize: 400,
+          splashIconSize: 500,
           splash: Center(child: Lottie.asset('assets/json/task.json')),
           nextScreen: sharedPreferences.getBool('first_launch') ?? false
               ? const TasksPage()
