@@ -9,4 +9,4 @@
 - **Cross-Platform Compatibility**: Making the app compatible with different operating systems required extensive testing and adjustments.
 - **User Authentication**: Implementing a secure login system while maintaining a fast and smooth user experience.
 ## Installation
-- Here is ready to use apk : https://www.upload-apk.com/bTemnAYjpmmU41W
+- Here is ready to use apk : https://www.upload-apk.com/bfnIvIB7OEEp7KP
