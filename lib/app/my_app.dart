@@ -27,6 +27,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) {
           return TasksCubit(RepositoryImpl(
             remoteDataSource: sl(),
+            localDataSource: sl(),
+            networkInfo: sl(),
           ));
         })
       ],

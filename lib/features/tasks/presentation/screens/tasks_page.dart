@@ -41,14 +41,17 @@ class _TasksPageState extends State<TasksPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.indigo,
+        backgroundColor: Color(0xff31363F),
         onPressed: () {
           context.showBottomSheet(
             isScrollControlled: true,
             child: const AddTaskWidget(),
           );
         },
-        child: const Icon(Icons.add),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
       body: BlocBuilder<TasksCubit, TasksState>(
         builder: (context, state) {

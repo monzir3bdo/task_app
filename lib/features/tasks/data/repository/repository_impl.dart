@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart' hide Task;
 import 'package:task_management/core/errors/failure.dart';
+import 'package:task_management/core/network/network_info.dart';
+import 'package:task_management/features/tasks/data/data_sources/local_data_source.dart';
 import 'package:task_management/features/tasks/data/data_sources/remote_data_source.dart';
 import 'package:task_management/features/tasks/data/models/dto/add_task_dto.dart';
 import 'package:task_management/features/tasks/data/models/task_model.dart';
@@ -10,12 +12,18 @@ import '../models/dto/update_task_dto.dart';
 
 class RepositoryImpl implements Repository {
   final RemoteDataSource remoteDataSource;
-
-  RepositoryImpl({required this.remoteDataSource});
+  final TaskLocalDataSource localDataSource;
+  final NetworkInfo networkInfo;
+  RepositoryImpl({
+    required this.remoteDataSource,
+    required this.localDataSource,
+    required this.networkInfo,
+  });
   @override
   Future<Either<Failure, Unit>> addTask(AddTaskDto taskDto) async {
     try {
       final response = await remoteDataSource.addTask(taskDto);
+
       return const Right(unit);
     } catch (e) {
       return Left(ServerFailure());
@@ -34,9 +42,26 @@ class RepositoryImpl implements Repository {
 
   @override
   Future<Either<Failure, List<Task>>> getTasks(int skip) async {
-    final response = await remoteDataSource.getTasks(skip);
-    final tasksList = response.map((e) => e.toDomain()).toList();
-    return right(tasksList);
+    if (await networkInfo.isConnected) {
+      try {
+        final response = await remoteDataSource.getTasks(skip);
+        localDataSource.cacheTasks(response);
+        final tasksList = response.map((e) => e.toDomain()).toList();
+        return right(tasksList);
+      } catch (e) {
+        return Left(ServerFailure());
+      }
+    } else {
+      try {
+        final localTasks = await localDataSource.getCachedTasks();
+        final localTaskToDomain = localTasks.map((e) => e.toDomain()).toList();
+        return Right(localTaskToDomain);
+      } catch (e) {
+        return Left(EmptyCacheFailure());
+      }
+
+      return Left(OfflineFailure());
+    }
   }
 
   @override
