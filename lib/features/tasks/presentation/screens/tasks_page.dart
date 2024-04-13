@@ -92,7 +92,9 @@ class _TasksPageState extends State<TasksPage> {
                       return const Center(
                         child: Padding(
                           padding: EdgeInsets.all(8.0),
-                          child: CircularProgressIndicator(),
+                          child: CircularProgressIndicator(
+                            color: Colors.indigo,
+                          ),
                         ),
                       );
                     } else if (scrollController.position ==

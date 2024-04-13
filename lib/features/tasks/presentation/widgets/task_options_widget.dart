@@ -25,6 +25,7 @@ class TaskOptionsWidget extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
               context.showBottomSheet(
+                isScrollControlled: true,
                 child: UpdateTaskWidget(
                   task: task,
                 ),
