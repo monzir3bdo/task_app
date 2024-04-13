@@ -6,13 +6,20 @@ import 'package:task_management/core/helper_functions.dart';
 import 'package:task_management/features/auth/presentation/logic/login_cubit/login_cubit.dart';
 import 'package:task_management/features/tasks/presentation/screens/tasks_page.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, required this.preferences});
   final SharedPreferences preferences;
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool isObscure = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF7F7F7),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: BlocConsumer<LoginCubit, LoginState>(
           listener: (context, state) {
@@ -34,7 +41,7 @@ class LoginScreen extends StatelessWidget {
               showDialog(
                   context: context,
                   builder: (context) {
-                    return SizedBox(
+                    return const SizedBox(
                       height: 80,
                       width: 80,
                     );
@@ -48,13 +55,14 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Gap(50),
-                    const Center(
+                    Image.asset('assets/png/task_logo.png'),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 18.0),
                       child: Text(
                         'Login',
                         style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -66,7 +74,7 @@ class LoginScreen extends StatelessWidget {
                           context.read<LoginCubit>().username = username;
                         },
                         decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.person),
+                          prefixIcon: const Icon(Icons.person),
                           hintText: 'Enter Username',
                           filled: true,
                           fillColor: Colors.white,
@@ -83,12 +91,23 @@ class LoginScreen extends StatelessWidget {
                     ),
                     const Gap(50),
                     TextFormField(
+                      obscureText: isObscure,
                       onChanged: (password) {
                         context.read<LoginCubit>().password = password;
                       },
                       decoration: InputDecoration(
                         hintText: 'Password',
-                        prefixIcon: Icon(Icons.lock),
+                        prefixIcon: const Icon(Icons.lock),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            isObscure ? Icons.visibility : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              isObscure = !isObscure;
+                            });
+                          },
+                        ),
                         filled: true,
                         fillColor: Colors.white,
                         focusedBorder: OutlineInputBorder(
@@ -105,7 +124,7 @@ class LoginScreen extends StatelessWidget {
                         : ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               minimumSize: const Size(double.infinity, 60),
-                              backgroundColor: Color(0xff102E61),
+                              backgroundColor: const Color(0xff102E61),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
@@ -113,7 +132,7 @@ class LoginScreen extends StatelessWidget {
                             onPressed: () async {
                               context.read<LoginCubit>().signIn();
 
-                              preferences.setBool('first_launch', true);
+                              widget.preferences.setBool('first_launch', true);
                             },
                             child: const Text(
                               'Login',
