@@ -1,16 +1,13 @@
-# task_management
+# Task Management
+## Design Decisions
+- **User-Centric Design**: Focused on simplicity and ease of use, ensuring that users can start managing their tasks without a steep learning curve.
+- **Responsive Layout**: Ensures a seamless experience across various devices and screen sizes.
+- **Color Coding**: Implemented color-coded priorities to help users quickly identify the urgency of tasks.
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Challenges Faced
+- **Data Persistence**: Ensuring that user data remains intact across sessions was a challenge that was overcome by implementing local storage solutions.
+- **Cross-Platform Compatibility**: Making the app compatible with different operating systems required extensive testing and adjustments.
+- **User Authentication**: Implementing a secure login system while maintaining a fast and smooth user experience.
+## Installation
+- Here is ready to use apk : https://www.upload-apk.com/bTemnAYjpmmU41W
+- 
