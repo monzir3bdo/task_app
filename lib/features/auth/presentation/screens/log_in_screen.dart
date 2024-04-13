@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_management/core/helper_functions.dart';
 import 'package:task_management/features/auth/presentation/logic/login_cubit/login_cubit.dart';
 import 'package:task_management/features/tasks/presentation/logic/tasks_cubit.dart';
 import 'package:task_management/features/tasks/presentation/screens/tasks_page.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
-
+  const LoginScreen({super.key, required this.preferences});
+  final SharedPreferences preferences;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,6 +114,7 @@ class LoginScreen extends StatelessWidget {
                             onPressed: () async {
                               context.read<LoginCubit>().signIn();
                               context.read<TasksCubit>().getAllTasks();
+                              preferences.setBool('first_launch', true);
                             },
                             child: const Text(
                               'Login',
