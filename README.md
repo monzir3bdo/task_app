@@ -10,4 +10,3 @@
 - **User Authentication**: Implementing a secure login system while maintaining a fast and smooth user experience.
 ## Installation
 - Here is ready to use apk : https://www.upload-apk.com/bTemnAYjpmmU41W
-- 
